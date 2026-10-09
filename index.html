@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EduBlock</title>
+<style>
+:root{--navy:#0b1f45;--orange:#ff7a00;--green:#5cb85c;--bg:#d9dde3;--pink:#fff4f2;--text:#222;--muted:#8a8f98}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,"Times New Roman",serif;color:var(--text);background:#fff;line-height:1.5}
+.wrap{max-width:1130px;margin:0 auto;padding:0 20px}
+a{color:inherit;text-decoration:none}
+.btn{display:inline-block;padding:16px 38px;border-radius:4px;font-weight:700;border:0;cursor:pointer;font-size:1rem;font-family:inherit}
+.btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.btn-green{background:var(--green);color:#fff}
+.btn-grey{background:#6b7280;color:#fff}
+.btn-outline{background:#fff;border:1px solid var(--orange);color:#222;padding:12px 26px;font-weight:400}
+
+/* hero */
+.hero{background:var(--bg);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;align-items:end;gap:20px;min-height:600px}
+.hero-text{align-self:center;padding:50px 0}
+.tag{color:var(--orange);margin-bottom:14px}
+.hero h1{font-size:clamp(2.6rem,6vw,5rem);line-height:1.05;color:var(--navy);margin-bottom:34px}
+.hero p{font-family:Arial,sans-serif;max-width:520px;color:#444;margin-bottom:30px}
+.hero-img{position:relative;align-self:end;min-height:480px;display:flex;align-items:flex-end;justify-content:center}
+.hero-img img{max-height:560px;max-width:100%;width:100%;height:100%;object-fit:contain}
+.hero-img .ph{position:absolute;inset:40px 40px 0;border-radius:200px 200px 0 0;background:linear-gradient(160deg,#9fb4d6,#6f8fbf);z-index:0}
+.hero-img img{position:relative;z-index:1}
+.badge{position:absolute;right:10px;bottom:40px;background:#fff;border-radius:8px;padding:12px 18px;box-shadow:0 6px 20px rgba(0,0,0,.15);z-index:2;font-family:Arial,sans-serif}
+.badge b{display:block;font-size:1.05rem}
+.badge span{font-size:.72rem}
+
+/* features */
+.features{padding:50px 0 40px;border-bottom:1px solid #ddd}
+.features .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.feat{display:flex;gap:16px}
+.feat .ic{font-size:2rem;color:#9aa0aa}
+.feat h3{font-size:.9rem;margin-bottom:6px}
+.feat p{font-family:Arial,sans-serif;color:var(--muted);font-size:.95rem}
+
+/* featured courses */
+.section{padding:70px 0}
+.section h2{font-size:1.7rem;margin-bottom:8px}
+.section .sub{max-width:560px;margin-bottom:36px}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.photo{height:260px;aspect-ratio:16/9;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:4rem;color:#fff;position:relative;overflow:hidden}
+.photo img,.pop-art img,.cat-item .im img,.course-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.p1{background:linear-gradient(135deg,#c4a98a,#8c6e56)}
+.p2{background:linear-gradient(135deg,#4a6fa5,#2c4570)}
+.p3{background:linear-gradient(135deg,#7d9a8a,#4f6b5d)}
+
+/* course cards */
+.pink{background:var(--pink)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid #e5e5e5;border-radius:6px;padding:26px;box-shadow:0 8px 24px rgba(0,0,0,.08);display:flex;flex-direction:column}
+.card .cat{color:#999;font-size:1rem;border-bottom:1px solid #ddd;padding-bottom:10px;margin-bottom:26px}
+.card h3{font-size:1.1rem;margin-bottom:22px}
+.card p{font-size:.95rem;flex:1;margin-bottom:22px}
+.stars{text-align:right;color:var(--orange);letter-spacing:4px;font-size:1.1rem}
+
+/* stats */
+.stats{padding:50px 0}
+.stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.stat{border-left:1px solid #ddd;padding:10px}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-size:4rem;color:var(--orange)}
+.stat span{font-family:Arial,sans-serif;color:#555}
+
+/* popular subjects */
+.pop .wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.pop-art{height:280px;aspect-ratio:16/9;border-radius:8px;background:linear-gradient(135deg,#ffe3c9,#ffc58f);display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden}
+.subjects{list-style:none;columns:4;column-gap:30px;margin-top:40px}
+.subjects li{break-inside:avoid;padding:5px 0}
+.subjects li::before{content:"\2605";color:var(--orange);margin-right:14px}
+
+/* categories */
+.cat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.cat-box{background:var(--pink);border-radius:6px;padding:60px}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.cat-item{background:#fff;border:1px solid #e5e5e5;border-radius:4px;overflow:hidden}
+.cat-item .im{height:200px;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#fff;position:relative;overflow:hidden}
+.cat-item h4{font-weight:400;font-size:1.3rem;padding:22px 20px}
+.c1{background:linear-gradient(135deg,#243b55,#141e30)}.c2{background:linear-gradient(135deg,#b88a6a,#7a5640)}
+.c3{background:linear-gradient(135deg,#2d3e50,#1b2631)}.c4{background:linear-gradient(135deg,#6b5b95,#3f3566)}
+.c5{background:linear-gradient(135deg,#a0522d,#6e3a1e)}.c6{background:linear-gradient(135deg,#6a994e,#386641)}
+
+/* join */
+.join{background:var(--pink);text-align:center;padding:110px 20px}
+.join h2{font-size:clamp(2rem,4.5vw,3.6rem);line-height:1.15;margin-bottom:26px}
+.join p{margin-bottom:10px}
+.join .btn{margin-top:26px}
+.join-form{display:grid;gap:12px;max-width:360px;margin:26px auto 0}
+.join-form input{padding:13px 14px;border:1px solid #ccc;border-radius:4px;font:inherit}
+.join-form .btn{margin-top:4px}
+#joinMsg{min-height:1.4em;margin:0;font-family:Arial,sans-serif;font-size:.9rem}
+#joinMsg.ok{color:#2e7d32}#joinMsg.err{color:#c62828}
+footer{text-align:center;padding:24px;color:#777;font-family:Arial,sans-serif;font-size:.85rem}
+.site-nav{background:#fff;border-bottom:1px solid #e5e5e5}
+.site-nav .wrap{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:700;font-size:1.25rem;color:var(--navy)}
+.nav-links{display:flex;align-items:center;gap:24px;font-family:Arial,sans-serif;font-size:.95rem}
+.nav-links a:hover{color:var(--orange)}
+#welcomeMsg,#authMsg{font-size:.9rem}
+#authMsg.ok{color:#2e7d32}#authMsg.err{color:#c62828}
+.login-modal{position:fixed;inset:0;z-index:10;background:rgba(11,31,69,.55);display:grid;place-items:center;padding:20px}
+.login-modal[hidden]{display:none}
+.login-dialog{position:relative;width:min(100%,420px);background:#fff;border-radius:6px;padding:32px;box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.login-dialog h2{margin-bottom:16px}
+.login-close{position:absolute;right:14px;top:10px;border:0;background:none;font-size:1.6rem;cursor:pointer;color:#555}
+.login-form{margin-top:0}
+#loginMsg{min-height:1.4em;margin:0;font-family:Arial,sans-serif;font-size:.9rem}
+#loginMsg.ok{color:#2e7d32}#loginMsg.err{color:#c62828}
+.course-filter{padding:12px 14px;border:1px solid #ccc;border-radius:4px;font:inherit;background:#fff}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.course-card{min-height:260px}
+.course-image{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:4px;background:linear-gradient(135deg,#9fb4d6,#6f8fbf);margin-bottom:20px}
+.course-card .cat{margin-bottom:18px}
+.course-card h3{margin-bottom:12px}
+.course-card p{font-family:Arial,sans-serif}
+.course-meta{color:#666;font-size:.9rem;margin-bottom:18px}
+.course-card .btn{margin-top:auto;align-self:flex-start}
+.course-detail{max-width:760px}
+.course-detail .course-image{margin-bottom:24px}
+.course-detail .course-meta{margin-top:14px}
+.route-message{min-height:1.5em;margin-bottom:18px;font-family:Arial,sans-serif}
+.route-message.err{color:#c62828}
+.route-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.app-view[hidden]{display:none}
+
+@media(max-width:900px){
+ .hero .wrap,.pop .wrap{grid-template-columns:1fr}
+ .features .wrap,.photos,.cards,.cat-grid,.stats .wrap,.course-grid{grid-template-columns:1fr}
+ .stat{border-left:0}
+ .subjects{columns:2}
+ .cat-box{padding:24px}
+ .site-nav .wrap{align-items:flex-start;flex-direction:column;padding-top:12px;padding-bottom:12px}
+ .nav-links{flex-wrap:wrap;gap:14px}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Main navigation">
+ <div class="wrap">
+  <a class="brand" href="#home">EduBlock</a>
+  <div class="nav-links">
+   <a href="#home">Home</a>
+   <a href="#courses">Courses</a>
+   <a href="#my-courses" id="myCoursesLink" hidden>My Courses</a>
+   <a href="#login" id="loginLink">Login</a>
+   <span id="welcomeMsg" hidden></span>
+   <a href="#logout" id="logoutLink" hidden>Logout</a>
+   <span id="authMsg" role="status"></span>
+  </div>
+ </div>
+</nav>
+
+<div id="loginModal" class="login-modal" hidden>
+ <section class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+  <button type="button" class="login-close" id="closeLogin" aria-label="Close login">&times;</button>
+  <h2 id="loginTitle">Login</h2>
+  <form id="loginForm" class="join-form login-form" novalidate>
+   <input name="email" type="email" placeholder="Email" autocomplete="email" required>
+   <input name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+   <button class="btn btn-green" type="submit">Login</button>
+   <p id="loginMsg" role="status"></p>
+  </form>
+ </section>
+</div>
+
+<main id="landingView" class="app-view">
+<header class="hero" id="home">
+ <div class="wrap">
+  <div class="hero-text">
+   <p class="tag">Live Sessions and Courses</p>
+   <h1>Learn from Industry Experts</h1>
+   <p><strong>EduBlock</strong> is an innovative online learning platform that provides high-quality courses, expert guidance, and interactive learning resources.</p>
+   <a href="#courses" class="btn btn-green">Browse Courses</a>
+  </div>
+  <div class="hero-img">
+   <div class="ph" aria-hidden="true"></div>
+   <!-- Put your instructor photo at images/instructor.png (optional). The page still looks fine without it. -->
+   <img src="images/instructor.png" alt="Instructor" width="640" height="560" onerror="this.remove()">
+   <div class="badge"><b>Richard Bublich</b><span>CEO Digital Trends | Instructor</span></div>
+  </div>
+ </div>
+</header>
+
+<section class="features">
+ <div class="wrap">
+  <div class="feat"><div class="ic" aria-hidden="true">&#9654;</div><div><h3>10,000 Online Courses</h3><p>Explore a wide range of high-quality courses across various subjects to enhance your knowledge and career skills.</p></div></div>
+  <div class="feat"><div class="ic" aria-hidden="true">&#127891;</div><div><h3>Expert Instructors</h3><p>Learn from experienced and qualified instructors who provide practical knowledge and personalized guidance.</p></div></div>
+  <div class="feat"><div class="ic" aria-hidden="true">&#8734;</div><div><h3>Unlimited Access</h3><p>Enjoy unlimited access to courses anytime, anywhere, and learn at your own pace.</p></div></div>
+ </div>
+</section>
+
+<section class="section" id="courses">
+ <div class="wrap">
+  <h2>Featured Courses</h2>
+  <p class="sub">Discover our top-rated and most popular courses designed to help you achieve your learning goals.</p>
+  <div class="photos">
+   <div class="photo p1" role="img" aria-label="Planning on a whiteboard">&#9998;<img src="images/course1.jpg" alt="" width="640" height="360" loading="lazy" onerror="this.remove()"></div>
+   <div class="photo p2" role="img" aria-label="Learning on a laptop">&#128187;<img src="images/course2.jpg" alt="" width="640" height="360" loading="lazy" onerror="this.remove()"></div>
+   <div class="photo p3" role="img" aria-label="Live online class">&#127909;<img src="images/course3.jpg" alt="" width="640" height="360" loading="lazy" onerror="this.remove()"></div>
+  </div>
+ </div>
+</section>
+
+<section class="section pink">
+ <div class="wrap cards">
+  <article class="card"><div class="cat">ENGINEERING</div><h3>Build strong technical skills with practical engineering concepts and real-world applications.</h3><p>Learn the fundamentals of engineering through practical concepts, problem-solving techniques, and real-world applications to build a strong technical foundation.</p><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></article>
+  <article class="card"><div class="cat">IT AND SOFTWARE</div><h3>Learn modern IT skills, networking, databases, and software management for today's digital world.</h3><p>Master programming languages, web development, and software design principles. Create innovative applications and solve real-world problems with confidence.</p><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></article>
+  <article class="card"><div class="cat">PERSONAL DEVELOPMENT</div><h3>Enhance your confidence, communication, and leadership skills for personal and career growth.</h3><p>Develop confidence, communication, leadership, and time management skills. Build a strong mindset for personal growth and long-term career success.</p><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></article>
+ </div>
+</section>
+
+<section class="stats">
+ <div class="wrap">
+  <div class="stat"><b>850K+</b><span>Learners</span></div>
+  <div class="stat"><b>10,550+</b><span>Courses</span></div>
+  <div class="stat"><b>250+</b><span>Instructors</span></div>
+ </div>
+</section>
+
+<section class="section pop" id="subjects">
+ <div class="wrap">
+  <div>
+   <h2 style="font-size:2.4rem;font-weight:400">Popular Subjects</h2>
+   <p style="margin-top:24px">Explore our most popular subjects designed to help you gain in-demand knowledge and practical skills. Choose from a variety of courses to achieve your academic and career goals.</p>
+  </div>
+  <div class="pop-art" role="img" aria-label="Learning illustration">&#128218;<img src="images/subjects.jpg" alt="" width="640" height="360" loading="lazy" onerror="this.remove()"></div>
+ </div>
+ <div class="wrap">
+  <!-- Each subject appears exactly once -->
+  <ul class="subjects" id="subjectList">
+   <li>Blockchain</li><li>C Programming</li><li>Devops</li><li>Django</li>
+   <li>Full Stack Development</li><li>Artificial Intelligence</li><li>Big Data</li><li>Cloud Computing</li>
+   <li>Computer Programming</li><li>Grammar</li><li>Italian</li><li>Japanese</li>
+   <li>Business Administration</li><li>Business Analysis</li><li>Corporate Finance</li><li>Economics</li>
+   <li>Entrepreneurship</li><li>Finance</li><li>Financial Literacy</li><li>Leadership</li>
+  </ul>
+ </div>
+</section>
+
+<section class="section" id="categories">
+ <div class="wrap">
+  <div class="cat-head"><h2 style="font-size:2.4rem;font-weight:400">Top Categories</h2><a href="#categories" class="btn btn-outline">View All Categories</a></div>
+  <div class="cat-box"><div class="cat-grid">
+   <div class="cat-item"><div class="im c1">&#128187;<img src="images/cat-software.jpg" alt="" width="600" height="400" loading="lazy" onerror="this.remove()"></div><h4>Software Development</h4></div>
+   <div class="cat-item"><div class="im c2">&#128483;<img src="images/cat-language.jpg" alt="" width="600" height="400" loading="lazy" onerror="this.remove()"></div><h4>Language</h4></div>
+   <div class="cat-item"><div class="im c3">&#128202;<img src="images/cat-data-science.jpg" alt="" width="600" height="400" loading="lazy" onerror="this.remove()"></div><h4>Data Science</h4></div>
+   <div class="cat-item"><div class="im c4">&#128188;<img src="images/cat-business.jpg" alt="" width="600" height="400" loading="lazy" onerror="this.remove()"></div><h4>Business</h4></div>
+   <div class="cat-item"><div class="im c5">&#129309;<img src="images/cat-leadership.jpg" alt="" width="600" height="400" loading="lazy" onerror="this.remove()"></div><h4>Leadership</h4></div>
+   <div class="cat-item"><div class="im c6">&#128214;<img src="images/cat-personal-development.jpg" alt="" width="600" height="400" loading="lazy" onerror="this.remove()"></div><h4>Personal Development</h4></div>
+  </div></div>
+ </div>
+</section>
+
+<section class="join" id="join">
+ <h2>Start Learning and Grow<br>with the Community</h2>
+ <p>Stay inspired with practical strategies and positive habits that help you achieve your goals.</p>
+ <p>Build confidence, overcome challenges, and unlock your full potential.</p>
+ <form id="joinForm" class="join-form" novalidate>
+  <input name="name" placeholder="Your name" autocomplete="name" required>
+  <input name="email" type="email" placeholder="Email" autocomplete="email" required>
+  <input name="password" type="password" placeholder="Password (8+ characters)" autocomplete="new-password" required>
+  <button class="btn btn-grey" type="submit">Join In</button>
+  <p id="joinMsg" role="status"></p>
+ </form>
+</section>
+
+<footer>&copy; EduBlock</footer>
+</main>
+<main id="routeView" class="app-view" hidden>
+ <section class="section">
+  <div class="wrap">
+   <div class="cat-head">
+    <h1 id="routeTitle">Courses</h1>
+    <a href="#home" class="btn btn-outline">Back Home</a>
+   </div>
+   <div id="routeToolbar"></div>
+   <p id="routeMessage" class="route-message" role="status"></p>
+   <div id="routeContent"></div>
+  </div>
+ </section>
+</main>
+<script>
+// Subjects come from the backend; the static list above is the fallback if the API is unreachable.
+fetch('/api/subjects').then(r=>r.json()).then(d=>{
+  const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  document.getElementById('subjectList').innerHTML=d.subjects.map(x=>'<li>'+esc(x)+'</li>').join('');
+}).catch(()=>{});
+
+const loginModal=document.getElementById('loginModal');
+const loginForm=document.getElementById('loginForm');
+const loginMsg=document.getElementById('loginMsg');
+const loginLink=document.getElementById('loginLink');
+const logoutLink=document.getElementById('logoutLink');
+const welcomeMsg=document.getElementById('welcomeMsg');
+const authMsg=document.getElementById('authMsg');
+const myCoursesLink=document.getElementById('myCoursesLink');
+const landingView=document.getElementById('landingView');
+const routeView=document.getElementById('routeView');
+const routeTitle=document.getElementById('routeTitle');
+const routeToolbar=document.getElementById('routeToolbar');
+const routeMessage=document.getElementById('routeMessage');
+const routeContent=document.getElementById('routeContent');
+const categories=['Engineering','IT and Software','Personal Development'];
+let currentUser=null;
+let routeRenderId=0;
+
+function updateAuth(user){
+  currentUser=user;
+  const loggedIn=Boolean(user);
+  loginLink.hidden=loggedIn;
+  logoutLink.hidden=!loggedIn;
+  welcomeMsg.hidden=!loggedIn;
+  myCoursesLink.hidden=!loggedIn;
+  welcomeMsg.textContent=loggedIn?'Hello, '+user.name:'';
+}
+
+function openLogin(){
+  authMsg.textContent='';
+  authMsg.className='';
+  loginMsg.className='';
+  loginMsg.textContent='';
+  loginModal.hidden=false;
+  loginForm.elements.email.focus();
+}
+
+loginLink.addEventListener('click',e=>{
+  e.preventDefault();
+  openLogin();
+});
+document.getElementById('closeLogin').addEventListener('click',()=>{loginModal.hidden=true;});
+loginModal.addEventListener('click',e=>{
+  if(e.target===loginModal) loginModal.hidden=true;
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&!loginModal.hidden) loginModal.hidden=true;
+});
+
+fetch('/api/me').then(async res=>{
+  if(res.ok){updateAuth(await res.json());renderRoute();}
+  else if(res.status!==401) throw new Error('Could not check login status.');
+}).catch(()=>{authMsg.className='err';authMsg.textContent='Unable to check login status.';});
+
+loginForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const f=e.target;
+  loginMsg.className='';
+  loginMsg.textContent='Logging in...';
+  try{
+    const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:f.email.value,password:f.password.value})});
+    const data=await res.json();
+    loginMsg.className=res.ok?'ok':'err';
+    loginMsg.textContent=res.ok?'Login successful.':data.error||'Unable to log in.';
+    if(res.ok){updateAuth(data);f.reset();renderRoute();}
+  }catch(err){loginMsg.className='err';loginMsg.textContent='Cannot reach the server. Check that the backend is running.';}
+});
+
+logoutLink.addEventListener('click',async e=>{
+  e.preventDefault();
+  authMsg.className='';
+  authMsg.textContent='Logging out...';
+  try{
+    const res=await fetch('/api/logout',{method:'POST'});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Unable to log out.');
+    updateAuth(null);
+    authMsg.className='ok';
+    authMsg.textContent='Logged out.';
+    renderRoute();
+  }catch(err){authMsg.className='err';authMsg.textContent='Unable to log out. Check that the backend is running.';}
+});
+
+function setRouteMessage(message,className=''){
+  routeMessage.className='route-message'+(className?' '+className:'');
+  routeMessage.textContent=message;
+}
+
+function addCourseImage(container,filename,title){
+  if(typeof filename!=='string'||!/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.(jpg|jpeg|png|webp)$/i.test(filename)) return;
+  const image=document.createElement('img');
+  image.src='images/'+encodeURIComponent(filename);
+  image.alt=title;
+  image.width=640;
+  image.height=360;
+  image.loading='lazy';
+  image.addEventListener('error',()=>image.remove(),{once:true});
+  container.appendChild(image);
+}
+
+function makeCourseCard(course,buttonLabel='View Course'){
+  const article=document.createElement('article');
+  article.className='card course-card';
+  const imageContainer=document.createElement('div');
+  imageContainer.className='course-image';
+  addCourseImage(imageContainer,course.image,course.title);
+  const category=document.createElement('div');
+  category.className='cat';
+  category.textContent=course.category.toUpperCase();
+  const title=document.createElement('h3');
+  title.textContent=course.title;
+  const description=document.createElement('p');
+  description.textContent=course.description;
+  const meta=document.createElement('p');
+  meta.className='course-meta';
+  meta.textContent=course.instructor+' · '+course.duration+' · ★ '+course.rating;
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='btn btn-outline';
+  button.textContent=buttonLabel;
+  button.addEventListener('click',()=>{location.hash='#course/'+course.id;});
+  article.append(imageContainer,category,title,description,meta,button);
+  return article;
+}
+
+async function loadCourseList(category,renderId){
+  routeContent.replaceChildren();
+  setRouteMessage('Loading courses...');
+  const query=category?'?category='+encodeURIComponent(category):'';
+  try{
+    const res=await fetch('/api/courses'+query);
+    const data=await res.json();
+    if(renderId!==routeRenderId) return;
+    if(!res.ok) throw new Error(data.error||'Unable to load courses.');
+    routeContent.className='course-grid';
+    if(data.courses.length===0){setRouteMessage('No courses found for this category.');return;}
+    setRouteMessage('');
+    data.courses.forEach(course=>routeContent.appendChild(makeCourseCard(course)));
+  }catch(err){
+    if(renderId===routeRenderId) setRouteMessage(err.message||'Unable to load courses. Check that the backend is running.','err');
+  }
+}
+
+async function renderCourses(renderId){
+  routeTitle.textContent='Courses';
+  routeToolbar.replaceChildren();
+  const filter=document.createElement('select');
+  filter.className='course-filter';
+  filter.setAttribute('aria-label','Filter courses by category');
+  [['','All categories'],...categories.map(category=>[category,category])].forEach(([value,label])=>{
+    const option=document.createElement('option');
+    option.value=value;
+    option.textContent=label;
+    filter.appendChild(option);
+  });
+  filter.addEventListener('change',()=>loadCourseList(filter.value,renderId));
+  routeToolbar.appendChild(filter);
+  await loadCourseList('',renderId);
+}
+
+async function renderCourseDetail(courseId,renderId){
+  routeTitle.textContent='Course Details';
+  routeToolbar.replaceChildren();
+  routeContent.replaceChildren();
+  routeContent.className='';
+  setRouteMessage('Loading course...');
+  try{
+    const res=await fetch('/api/courses/'+encodeURIComponent(courseId));
+    const data=await res.json();
+    if(renderId!==routeRenderId) return;
+    if(!res.ok) throw new Error(data.error||'Unable to load this course.');
+    const course=data.course;
+    const detail=document.createElement('article');
+    detail.className='card course-detail';
+    const imageContainer=document.createElement('div');
+    imageContainer.className='course-image';
+    addCourseImage(imageContainer,course.image,course.title);
+    const category=document.createElement('div');
+    category.className='cat';
+    category.textContent=course.category.toUpperCase();
+    const title=document.createElement('h2');
+    title.textContent=course.title;
+    const description=document.createElement('p');
+    description.textContent=course.description;
+    const meta=document.createElement('p');
+    meta.className='course-meta';
+    meta.textContent='Instructor: '+course.instructor+' · Duration: '+course.duration+' · Rating: '+course.rating;
+    const actions=document.createElement('div');
+    actions.className='route-actions';
+    const enrollButton=document.createElement('button');
+    enrollButton.type='button';
+    enrollButton.className='btn btn-green';
+    enrollButton.textContent=currentUser?'Enroll':'Login to Enroll';
+    enrollButton.addEventListener('click',async()=>{
+      if(!currentUser){
+        setRouteMessage('Please log in to enroll in this course.');
+        openLogin();
+        return;
+      }
+      enrollButton.disabled=true;
+      setRouteMessage('Enrolling...');
+      try{
+        const enrollRes=await fetch('/api/courses/'+encodeURIComponent(course.id)+'/enroll',{method:'POST'});
+        const enrollData=await enrollRes.json();
+        if(enrollRes.status===401){
+          updateAuth(null);
+          setRouteMessage('Please log in to enroll in this course.');
+          openLogin();
+        }else if(!enrollRes.ok){
+          setRouteMessage(enrollData.error||'Unable to enroll in this course.', 'err');
+          enrollButton.disabled=false;
+        }else{
+          setRouteMessage(enrollData.message||'Successfully enrolled.');
+          enrollButton.textContent='Enrolled';
+        }
+      }catch(err){
+        setRouteMessage('Cannot reach the server. Check that the backend is running.','err');
+        enrollButton.disabled=false;
+      }
+    });
+    actions.appendChild(enrollButton);
+    detail.append(imageContainer,category,title,description,meta,actions);
+    routeContent.appendChild(detail);
+    setRouteMessage('');
+  }catch(err){
+    if(renderId===routeRenderId) setRouteMessage(err.message||'Unable to load this course.','err');
+  }
+}
+
+async function renderMyCourses(renderId){
+  routeTitle.textContent='My Courses';
+  routeToolbar.replaceChildren();
+  routeContent.replaceChildren();
+  routeContent.className='course-grid';
+  if(!currentUser){
+    setRouteMessage('Please log in to view your courses.');
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='btn btn-green';
+    button.textContent='Login';
+    button.addEventListener('click',openLogin);
+    routeContent.appendChild(button);
+    return;
+  }
+  setRouteMessage('Loading your courses...');
+  try{
+    const res=await fetch('/api/my-courses');
+    const data=await res.json();
+    if(renderId!==routeRenderId) return;
+    if(!res.ok) throw new Error(data.error||'Unable to load your courses.');
+    if(data.courses.length===0){setRouteMessage('You are not enrolled in any courses yet.');return;}
+    setRouteMessage('');
+    data.courses.forEach(course=>routeContent.appendChild(makeCourseCard(course)));
+  }catch(err){
+    if(renderId===routeRenderId) setRouteMessage(err.message||'Unable to load your courses.','err');
+  }
+}
+
+function renderRoute(){
+  const hash=location.hash.slice(1);
+  const isAppRoute=hash==='courses'||hash==='my-courses'||hash.startsWith('course/');
+  landingView.hidden=isAppRoute;
+  routeView.hidden=!isAppRoute;
+  if(!isAppRoute) return;
+  const renderId=++routeRenderId;
+  routeContent.className='';
+  routeToolbar.replaceChildren();
+  routeContent.replaceChildren();
+  setRouteMessage('');
+  if(hash==='courses') renderCourses(renderId);
+  else if(hash==='my-courses') renderMyCourses(renderId);
+  else renderCourseDetail(hash.slice('course/'.length),renderId);
+}
+
+window.addEventListener('hashchange',renderRoute);
+renderRoute();
+
+document.getElementById('joinForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const f=e.target, msg=document.getElementById('joinMsg');
+  msg.className=''; msg.textContent='Joining...';
+  try{
+    const res=await fetch('/api/join',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:f.name.value,email:f.email.value,password:f.password.value})});
+    const data=await res.json();
+    msg.className=res.ok?'ok':'err';
+    msg.textContent=data.message||data.error||'Something went wrong. Try again.';
+    if(res.ok){updateAuth(data);f.reset();renderRoute();}
+  }catch(err){ msg.className='err'; msg.textContent='Cannot reach the server. Check that the backend is running.'; }
+});
+</script>
+</body>
+</html>
